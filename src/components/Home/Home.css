@@ -1,0 +1,169 @@
+/* FAQ Container */
+.faq-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* FAQ Item */
+.faq-item {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 15px;
+}
+
+.faq-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.faq-question {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.faq-priority {
+  font-size: 14px;
+  border: none;
+  font-weight: 500;
+  border-radius: 25px;
+  padding: 10px;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #007bff;
+}
+
+/* Answer Section */
+.faq-answer {
+  margin-top: 10px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #444;
+}
+
+/* FAQ Image */
+.faq-image {
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.faq-date {
+  font-size: 12px;
+  color: #999;
+  margin-top: 5px;
+}
+
+/* Actions (Edit/Delete) */
+.faq-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.edit-btn {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+/* Message Styling */
+.faq-message {
+  color: #28a745;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 768px) {
+  .faq-container {
+    padding: 15px;
+  }
+
+  .faq-header {
+    flex-direction: column; /* Stack question, priority, and button vertically on smaller screens */
+    align-items: flex-start;
+  }
+
+  .faq-question {
+    font-size: 16px; /* Slightly reduce the font size on mobile */
+  }
+
+  .faq-priority {
+    font-size: 12px; /* Adjust priority text size for mobile */
+    margin-bottom: 5px;
+  }
+
+  .toggle-btn {
+    align-self: flex-end; /* Align the button to the right */
+    margin-top: 10px;
+  }
+
+  .faq-answer {
+    font-size: 15px; /* Slightly reduce the font size for answers on mobile */
+  }
+
+  .edit-btn,
+  .delete-btn {
+    flex: 1; /* Make buttons fill the width on smaller screens */
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .faq-actions {
+    flex-direction: column; /* Stack buttons vertically on smaller screens */
+    width: 100%;
+    gap: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .faq-header {
+    align-items: stretch;
+  }
+
+  .faq-question {
+    font-size: 14px; /* Further reduce the font size for very small screens */
+  }
+
+  .faq-answer {
+    font-size: 14px;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .faq-actions {
+    gap: 4px;
+  }
+}

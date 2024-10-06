@@ -1,0 +1,73 @@
+* {
+  font-family: "Rubik", system-ui;
+}
+/* General Styling */
+.faq-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Logo Styling */
+.faq-logo {
+  width: 150px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+/* Button Styling */
+.create-topic-btn {
+  background-color: #007bff; /* Primary blue color */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.create-topic-btn:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Create Question Form or Section */
+.create-question {
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Home Section (can customize further depending on content inside) */
+.home-section {
+  width: 100%;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .faq-page {
+    padding: 10px;
+  }
+
+  .faq-logo {
+    width: 100px; /* Smaller logo for mobile */
+  }
+
+  .create-topic-btn {
+    width: 100%;
+    font-size: 14px; /* Slightly smaller font for mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .faq-page {
+    padding: 5px;
+  }
+
+  .create-topic-btn {
+    font-size: 12px; /* Smaller font for very small screens */
+  }
+}
