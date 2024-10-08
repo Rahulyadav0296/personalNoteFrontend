@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   const [message, setMessage] = useState("");
   const [imageFile, setImageFile] = useState([]);
   const [editableText, setEditableText] = useState(false);
-  const baseURL = "http://localhost:3000";
+  const baseURL = "https://personalnotesbackend-1.onrender.com/";
   const [id, setId] = useState("");
 
   return (

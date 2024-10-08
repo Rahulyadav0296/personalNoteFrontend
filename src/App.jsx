@@ -5,7 +5,8 @@ import Home from "./components/Home/Home";
 import { AuthContext } from "./utils/AuthContext";
 function App() {
   const [showBtn, setShowBtn] = useState(false);
-  const { baseURL = "http://localhost:3000" } = useContext(AuthContext);
+  const { baseURL = "https://personalnotesbackend-1.onrender.com/" } =
+    useContext(AuthContext);
   const socket = useRef(null);
 
   useEffect(() => {
