@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AuthContext } from "../../utils/AuthContext";
 import "./CreateQuestion.css";
 import Button from "./Form/Button";
@@ -6,7 +6,7 @@ import Form from "./Form/Form";
 import Images from "./Form/Images";
 import Priority from "./Form/Priority";
 
-function CreateQuestion() {
+function CreateQuestion({ socket }) {
   const {
     search,
     setSearch,
@@ -19,6 +19,20 @@ function CreateQuestion() {
     editableText,
     baseURL,
   } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("questionCreated", (data) => {
+        console.log("New Question created on the server: ", data);
+      });
+    }
+
+    return () => {
+      if (socket) {
+        socket.off("questionCreated");
+      }
+    };
+  }, [socket]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,22 +52,31 @@ function CreateQuestion() {
       formData.append("priority", search.priority);
 
       // check if the imageFile is a file(new upload)  or URL (existing image)
-      if (imageFile) {
-        formData.append("image", imageFile);
+      if (imageFile && imageFile.length > 0) {
+        for (let i = 0; i < imageFile.length; i++) {
+          formData.append("images", imageFile[i]); // append each image
+        }
       }
-
       const response = await fetch(`${baseURL}/faq/create`, {
         method: "POST",
         body: formData,
       });
 
       if (!response.ok) {
-        throw new Error(`Failed to Update: ${response.statusText}`);
+        const errorText = await response.text(); // Get the error response
+        throw new Error(
+          `Failed to create question: ${response.statusText} - ${errorText}`
+        );
       }
 
       const data = await response.json();
       console.log(data);
       setMessage("Question created successfully!");
+
+      if (socket) {
+        socket.emit("questionCreated", { question: data });
+      }
+
       setSearch({
         question: "",
         answers: "",
@@ -75,15 +98,12 @@ function CreateQuestion() {
       formData.append("answers", search.answers);
       formData.append("priority", search.priority);
 
-      if (typeof imageFile === "object" && imageFile instanceof File) {
-        formData.append("image", imageFile);
+      if (imageFile && imageFile.length > 0) {
+        for (let i = 0; i < imageFile.length; i++) {
+          formData.append("images", imageFile[i]);
+        }
       }
-
       console.log("form data is: ", formData);
-
-      for (let pair of formData.entries()) {
-        console.log(`${pair[0]}, ${pair[1]}`);
-      }
 
       const response = await fetch(`${baseURL}/faq/${id}`, {
         method: "PUT", // Set the HTTP method to PUT
@@ -91,13 +111,20 @@ function CreateQuestion() {
       });
 
       if (!response.ok) {
-        throw new Error(`Failed to update: ${response.statusText}`);
+        const errorText = await response.text(); // Get the error response
+        throw new Error(
+          `Failed to update: ${response.statusText} - ${errorText}`
+        );
       }
 
       const results = await response.json(); // Parse the response
       console.log("updated details are: ", results);
 
       setEditableText(false);
+
+      if (socket) {
+        socket.emit("questionUpdated", { question: results });
+      }
 
       // Reset search state
       setSearch({

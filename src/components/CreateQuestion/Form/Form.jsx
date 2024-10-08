@@ -25,6 +25,8 @@ function Form({ handleChange }) {
           value={search.answers}
           onChange={handleChange}
           placeholder="Enter Answer..."
+          rows="10"
+          cols="50"
         />
       </div>
     </>

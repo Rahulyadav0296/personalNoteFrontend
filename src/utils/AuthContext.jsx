@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
     priority: "",
   });
   const [message, setMessage] = useState("");
-  const [imageFile, setImageFile] = useState(null);
+  const [imageFile, setImageFile] = useState([]);
   const [editableText, setEditableText] = useState(false);
   const baseURL = "http://localhost:3000";
   const [id, setId] = useState("");

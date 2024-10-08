@@ -1,11 +1,8 @@
 import React, { useContext } from "react";
-import { io } from "socket.io-client";
 import { AuthContext } from "../../utils/AuthContext";
 
-function DeleteButton({ ques }) {
+function DeleteButton({ ques, socket }) {
   const { baseURL, setQuestions, setMessage } = useContext(AuthContext);
-
-  const socket = io(baseURL);
 
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm(
@@ -28,7 +25,9 @@ function DeleteButton({ ques }) {
       }
 
       // Emit an event to notify other clients that the question has been deleted
-      socket.emit("deleteQuestion", id);
+      if (socket) {
+        socket.emit("deleteQuestion", id);
+      }
     } catch (error) {
       console.error("Error deleting question:", error);
       setMessage("An error occurred while deleting the question.");

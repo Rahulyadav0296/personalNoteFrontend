@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
-import { io } from "socket.io-client";
 import { AuthContext } from "../../utils/AuthContext";
-function EditButton({ ques }) {
+function EditButton({ ques, socket }) {
   const {
     baseURL,
     questions,
@@ -10,8 +9,6 @@ function EditButton({ ques }) {
     setId,
     setEditableText,
   } = useContext(AuthContext);
-
-  const socket = io(baseURL);
 
   const handleEdit = (id) => {
     const editableQuestion = questions.find((ques) => ques._id === id);
@@ -30,7 +27,9 @@ function EditButton({ ques }) {
     setEditableText(true);
 
     //Emit an event to notify other clients that a question is being edited
-    socket.emit("editQuestion", editableQuestion);
+    if (socket) {
+      socket.emit("editQuestion", editableQuestion);
+    }
   };
   return (
     <button className="edit-btn" onClick={() => handleEdit(ques._id)}>
